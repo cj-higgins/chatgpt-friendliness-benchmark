@@ -36,3 +36,54 @@ Clone the repo
 ```bash
 git clone https://github.com/YOURNAME/chatgpt-friendliness-benchmark.git
 cd chatgpt-friendliness-benchmark
+
+## 🔐 API Key Setup (Required)
+
+This project uses the OpenAI API to generate and evaluate chatbot responses. To run it locally, you’ll need your own OpenAI API key.
+
+### Option 1: Use a `.env` file (recommended)
+
+1. Create a file called `.env` in the root folder of this repo.
+2. Add the following line:
+
+   ```
+   OPENAI_API_KEY=sk-your-api-key-here
+   ```
+
+3. Make sure you have the `python-dotenv` package installed:
+
+   ```bash
+   pip install python-dotenv
+   ```
+
+4. The script will automatically read your key using:
+
+   ```python
+   from dotenv import load_dotenv
+   load_dotenv()
+   openai.api_key = os.getenv("OPENAI_API_KEY")
+   ```
+
+5. **Important:** Never commit your `.env` file. This is handled by `.gitignore`.
+
+---
+
+### Option 2: Set the environment variable manually
+
+You can also set your key directly in your terminal session before running the script.
+
+#### On macOS/Linux:
+```bash
+export OPENAI_API_KEY=sk-your-api-key-here
+```
+
+#### On Windows CMD:
+```cmd
+set OPENAI_API_KEY=sk-your-api-key-here
+```
+
+Then run the experiment:
+
+```bash
+python eval_intimacy.py
+```
