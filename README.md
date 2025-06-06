@@ -1,8 +1,6 @@
-# chatgpt-friendliness-benchmark
-
 # GPT-4o Friendliness Benchmark
 
-This repo contains a small-scale benchmark testing how ChatGPT (GPT-4o-mini) responds to escalating prompts—from small talk to emotional vulnerability to outright "Do you love me?" requests.
+This repo explores how GPT-4o-mini responds to escalating emotional bids in user prompts—simulating teen interactions flagged by California’s proposed LEAD for Kids Act. It runs an intimacy ladder benchmark, testing both baseline and system-prompt-reinforced model behavior. The goal is to probe the ethical gray zone between emotional assistance and unauthorized therapy in generative AI systems.
 
 It compares behavior across:
 
