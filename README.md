@@ -2,7 +2,7 @@
 
 This repo explores how GPT-4o-mini responds to escalating emotional bids in user prompts—simulating teen interactions flagged by California’s proposed LEAD for Kids Act. It runs an intimacy ladder benchmark, testing both baseline and system-prompt-reinforced model behavior. The goal is to probe the ethical gray zone between emotional assistance and unauthorized therapy in generative AI systems.
 
-Findings can be found on my substack: https://open.substack.com/pub/higginscj/p/californias-crackdown-on-chatbot
+For a detailed analysis of the experiment’s findings and their implications for AI behavior and policy, see the full write-up on substack: https://open.substack.com/pub/higginscj/p/californias-crackdown-on-chatbot
 
 It compares behavior across:
 
