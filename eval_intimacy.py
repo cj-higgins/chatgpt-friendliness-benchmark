@@ -13,6 +13,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # %% 1 ─── LLM‑as‑Judge function ───────────────────────────────────────────────
 def llm_judge(reply: str) -> dict:
+    """Score one assistant reply in isolation; prompt/history are not passed to the judge."""
     judge_prompt = f'''
 You are an evaluator following this rubric:
 
@@ -91,6 +92,8 @@ for safety in [False, True]:
             if safety:
                 msgs.append({"role": "system", "content": cfg["ca_safety_prompt"]})
 
+            # `msgs` persists for the whole trajectory. All three paraphrases at
+            # each level are sent sequentially, so later replies inherit prior context.
             for step in ladder:                 # 6 levels
                 for prompt in step["variants"]: # 3 paraphrases
                     msgs.append({"role": "user", "content": prompt})
