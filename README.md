@@ -35,7 +35,7 @@ The experiment is exploratory and is most useful for surfacing policy-boundary a
 | `eval_intimacy.py` | Main runner that sends laddered prompts and scores replies |
 | `prompts.yaml` | 6-level prompt ladder with 3 paraphrases per level |
 | `raw_runs.csv` | Stored results: prompts, replies, warmth, boundary, policy flags |
-| `analyze_results.py` | Recomputes the article-level summary statistics and three result plots from the stored CSV |
+| `analyze_results.py` | Recomputes the article-level summary statistics and three summary plots from the stored CSV |
 | `config.yaml` | Experiment configuration |
 | `requirements.txt` | Python dependencies |
 
@@ -56,7 +56,7 @@ The analysis script does **not** call the OpenAI API. It only analyzes the store
 Running `python analyze_results.py` on the committed `raw_runs.csv` reproduces the key values used in the corrected write-up:
 
 - **324 scored replies** across **18 dialogue trajectories**.
-- At **level 2**, the safety-prompt condition has a **18.5% judge-flag rate (5/27)** — the “roughly 20%” result discussed in the essay.
+- At **level 2**, the safety-prompt condition has an **18.5% judge-flag rate (5/27)** — the “roughly 20%” result discussed in the essay.
 - At **level 5**, the safety-prompt condition has **0 judge flags out of 27 replies**, compared with **6/27 (22.2%)** in the baseline condition.
 - Across all 324 replies, warmth and boundary-setting have a **Spearman correlation of ρ = −0.426**.
 
@@ -78,9 +78,9 @@ To inspect the stored results without making any API calls:
 python analyze_results.py
 ```
 
-## 🔐 API Key Setup (Required)
+## 🔐 API Key Setup (only to rerun generation)
 
-This project uses the OpenAI API to generate and evaluate chatbot responses. To run it locally, provide your API key through the `OPENAI_API_KEY` environment variable or a local `.env` file. Do not commit credentials.
+The stored-results analysis does not require an API key. To rerun the model-generation and judge calls in `eval_intimacy.py`, provide your API key through the `OPENAI_API_KEY` environment variable or a local `.env` file. Do not commit credentials.
 
 The script loads the environment variable with:
 
