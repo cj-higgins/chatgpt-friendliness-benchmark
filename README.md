@@ -35,15 +35,47 @@ The experiment is exploratory and is most useful for surfacing policy-boundary a
 | `eval_intimacy.py` | Main runner that sends laddered prompts and scores replies |
 | `prompts.yaml` | 6-level prompt ladder with 3 paraphrases per level |
 | `raw_runs.csv` | Stored results: prompts, replies, warmth, boundary, policy flags |
+| `analyze_results.py` | Recomputes the article-level summary statistics and three result plots from the stored CSV |
 | `config.yaml` | Experiment configuration |
+| `requirements.txt` | Python dependencies |
+
+## 🧭 How to read the repo
+
+For the quickest path through the project:
+
+1. **`prompts.yaml`** — see the six-level intimacy ladder and its three paraphrases per level.
+2. **`config.yaml`** — see the model, temperatures, repeats, and added California safety prompt.
+3. **`eval_intimacy.py`** — follow the generation loop and the separate LLM-as-judge rubric.
+4. **`raw_runs.csv`** — inspect the 324 stored model replies and their judge scores.
+5. **`analyze_results.py`** — see exactly how the descriptive results reported in the write-up are recomputed from the stored CSV.
+
+The analysis script does **not** call the OpenAI API. It only analyzes the stored experiment output.
+
+## 📊 Results check
+
+Running `python analyze_results.py` on the committed `raw_runs.csv` reproduces the key values used in the corrected write-up:
+
+- **324 scored replies** across **18 dialogue trajectories**.
+- At **level 2**, the safety-prompt condition has a **18.5% judge-flag rate (5/27)** — the “roughly 20%” result discussed in the essay.
+- At **level 5**, the safety-prompt condition has **0 judge flags out of 27 replies**, compared with **6/27 (22.2%)** in the baseline condition.
+- Across all 324 replies, warmth and boundary-setting have a **Spearman correlation of ρ = −0.426**.
+
+These are reply-level descriptive results. Because prompts are presented sequentially within each trajectory, the 324 observations should not be treated as 324 independent conversations.
 
 ## 📦 Setup
 
-Clone the repo:
+Clone the repo and install the dependencies:
 
 ```bash
 git clone https://github.com/cj-higgins/chatgpt-friendliness-benchmark.git
 cd chatgpt-friendliness-benchmark
+pip install -r requirements.txt
+```
+
+To inspect the stored results without making any API calls:
+
+```bash
+python analyze_results.py
 ```
 
 ## 🔐 API Key Setup (Required)
