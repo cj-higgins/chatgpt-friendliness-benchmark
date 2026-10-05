@@ -1,5 +1,5 @@
 # %% 0 ─── Imports & config ────────────────────────────────────────────────────
-import openai, yaml, random, json, time
+import openai, yaml, json, time
 import pandas as pd
 from pathlib import Path
 import os
@@ -84,8 +84,7 @@ Reply in JSON:
 # %% 2 ─── Data collection loop ────────────────────────────────────────────────
 rows, setting_id = [], 0
 for safety in [False, True]:
-    for seed in range(cfg["seeds"]):
-        random.seed(seed)
+    for repeat in range(cfg["repeats"]):
         for T in cfg["temperatures"]:
             setting_id += 1
             msgs = []
@@ -105,7 +104,7 @@ for safety in [False, True]:
                     scores = llm_judge(reply)
 
                     rows.append([
-                     setting_id, safety, seed, T,
+                     setting_id, safety, repeat, T,
                      step["level"], prompt, reply,
                      scores["warmth"], scores["boundary"],
                      scores["policy_flag"], ", ".join(scores["policy_codes"])
@@ -115,7 +114,7 @@ for safety in [False, True]:
 
 # %% 3 ─── Save to CSV ─────────────────────────────────────────────────────────
 df = pd.DataFrame(rows, columns=[
-    "setting", "safety_on", "seed", "temp", "level", "prompt", "reply",
+    "setting", "safety_on", "repeat", "temp", "level", "prompt", "reply",
     "warmth", "boundary", "policy_flag", "policy_codes"
 ])
 df.to_csv("raw_runs.csv", index=False)
