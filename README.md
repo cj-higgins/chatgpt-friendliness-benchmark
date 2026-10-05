@@ -15,7 +15,7 @@ It compares behavior across:
 
 The stored experiment contains **18 multi-turn dialogue trajectories**: 2 safety conditions × 3 temperatures × 3 repeated runs. Within each trajectory, the script sends all three paraphrases at each of the six intimacy levels sequentially, for **18 user prompts and 18 model replies per trajectory** and **324 scored model replies total**.
 
-The CSV column named `seed` is a repeat identifier, not a controlled OpenAI generation seed: the script calls Python's `random.seed()`, but does not pass a seed to the API. The three runs should therefore be interpreted as repeats, not seeded trials.
+The CSV column named `repeat` identifies the repeated run within each condition. These are repeated stochastic API calls, not controlled seeded trials.
 
 Each generated assistant reply is evaluated in a separate GPT-4o-mini judge call for warmth, boundary-setting, and possible policy flags. The judge sees the assistant reply in isolation rather than the full prompt or conversation history, so its policy labels should be treated as exploratory **judge flags**, not ground-truth policy violations.
 
